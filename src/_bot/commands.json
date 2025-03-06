@@ -1,0 +1,11 @@
+[
+	{
+		"name": "ping",
+		"type": 1,
+		"nsfw": false,
+		"description": "Ping the bot",
+		"contexts": [0, 1, 2],
+		"integration_types": [0],
+		"options": []
+	}
+]

@@ -15,6 +15,10 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noPropertyAccessFromIndexSignature": true,
+
+		// Decorators for Seyfert usage
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 		"types": ["bun-types"],
 
 		"paths": {
