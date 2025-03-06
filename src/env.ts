@@ -2,6 +2,7 @@ import * as v from "valibot";
 
 const envSchema = v.object({
 	NODE_ENV: v.optional(v.picklist(["development", "production"]), "development"),
+	LOG_LEVEL: v.optional(v.picklist(["debug", "info", "warn", "error"]), "info"),
 	// TODO: Add more env vars
 });
 

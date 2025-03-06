@@ -1,3 +1,4 @@
 import { validEnv } from "./env";
+import { logger } from "./utils/logger";
 
-console.log(validEnv.NODE_ENV);
+logger.info(validEnv.NODE_ENV);
