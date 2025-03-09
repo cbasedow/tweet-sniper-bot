@@ -9,7 +9,7 @@ export const validateSchema = <TSchema extends v.BaseSchema<unknown, unknown, v.
 
 	if (!result.success) {
 		const formattedIssues = result.issues
-			.map((issue) => `${issue.path?.map((p) => p.toString()).join(".")}: ${issue.message}`)
+			.map((issue) => `${issue.path?.map((p) => p.key).join(".")}: ${issue.message}`)
 			.join("\n");
 		return err(new Error(`Invalid data: ${formattedIssues}`));
 	}
