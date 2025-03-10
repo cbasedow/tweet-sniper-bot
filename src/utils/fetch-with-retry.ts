@@ -5,7 +5,7 @@ import { logger } from "./logger";
 interface EnhancedFetchOptions extends RequestInit {
 	maxRetries?: number;
 	retryDelay?: number;
-	timeout?: number;
+	timeout?: number | null;
 }
 
 const DEFAULT_FETCH_OPTIONS = {
@@ -27,7 +27,7 @@ export const fetchWithRetry = (url: string, options: EnhancedFetchOptions = {}):
 	};
 
 	const executeFetchWithRetry = (attempt: number): ResultAsync<Response, Error> => {
-		const signal = AbortSignal.timeout(timeout);
+		const signal = timeout ? AbortSignal.timeout(timeout) : undefined;
 
 		return ResultAsync.fromPromise(
 			fetch(url, {
