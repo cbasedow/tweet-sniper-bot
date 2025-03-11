@@ -16,21 +16,26 @@ const createDexscreenerService = () => {
 			return fetchWithRetry(url, {
 				method: "GET",
 				headers: BASE_HEADERS,
-			}).andThen((okResponse) => {
-				return fromPromise(okResponse.json(), (error) =>
-					formatUnknownError(error, `Error parsing json from url ${url}`),
-				)
-					.andThen((data) => validateSchema(v.nullish(v.array(dexscreenerPairSchema)), data))
-					.andThen((pairs) => {
-						// Return null if no pairs found
-						if (!pairs || pairs.length === 0) {
-							return okAsync(null);
-						}
+			})
+				.andThen((okResponse) => {
+					return fromPromise(okResponse.json(), (error) =>
+						formatUnknownError(error, `Error parsing json from url ${url}`),
+					)
+						.andThen((data) => validateSchema(v.nullish(v.array(dexscreenerPairSchema)), data))
+						.andThen((pairs) => {
+							// Return null if no pairs found
+							if (!pairs || pairs.length === 0) {
+								return okAsync(null);
+							}
 
-						// First pair will be the main/current pair
-						return okAsync(pairs[0].pairAddress);
-					});
-			});
+							// First pair will be the main/current pair
+							return okAsync(pairs[0].pairAddress);
+						});
+				})
+				.mapErr(
+					(error) =>
+						new Error(`Error getting Dexscreener pair address by token address ${tokenAddress}`, { cause: error }),
+				);
 		},
 	};
 };
